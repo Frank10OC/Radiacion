@@ -23,7 +23,7 @@ n = st.number_input("Ingrese el valor de n:")
 
 # Función para calcular δ
 def calcular_delta(n):
-    delta = 23.75 * math.sin(0.9856 * n)
+    delta = 23.45 * math.sin(0.9856 * n)
     return delta
 
 # Botón para realizar el cálculo
