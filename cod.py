@@ -47,7 +47,7 @@ def calcular_d(n, dd):
 if st.button("Calcular d"):
     resultado = calcular_d(n, dd)
     st.write(f"El valor de d es: {resultado}")
-    x=pow(dd/{resultado},2)
+    x=pow(dd/resultado,2)
     st.write(f"El valor de d es:",x)
 import streamlit as st
 import math
