@@ -38,7 +38,7 @@ if st.button("Calcular δ"):
 st.title("Cálculo de d")
 
 # Función para calcular d
-dd=1.4968xpow(10,13) #cm đ
+dd=1.4968*pow(10,13) #cm đ
 def calcular_d(n, dd):
     d = dd * (1 + 0.17 * math.sin(grados_a_radianes(0.9856 * n)))
     return d
