@@ -14,6 +14,24 @@ else:
     st.write("Por favor, ingresa tu nombre en el cuadro de texto arriba.")
 import math
 import streamlit as st
+
+# Título de la aplicación
+st.title("Cálculo de d")
+
+# Entrada de valores
+n = st.number_input("Ingrese el valor de n:")
+dd = st.number_input("Ingrese el valor de đ:")
+
+# Función para calcular d
+def calcular_d(n, dd):
+    d = dd * (1 + 0.17 * math.sin(0.9856 * n))
+    return d
+
+# Botón para realizar el cálculo
+if st.button("Calcular d"):
+    resultado = calcular_d(n, dd)
+    st.write(f"El valor de d es: {resultado}")
+
 # Título de la aplicación
 st.title("Cálculo de δ")
 
