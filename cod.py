@@ -37,52 +37,41 @@ if st.button("Calcular δ"):
 # Título de la aplicación
 st.title("Cálculo de d")
 
-# Entrada de valores
-n = st.number_input("Ingrese el valor de n:")
-dd = st.number_input("Ingrese el valor de đ:")
-
 # Función para calcular d
+dd=1,4968xpow(10,13) #cm đ
 def calcular_d(n, dd):
-    d = dd * (1 + 0.17 * math.sin(0.9856 * n))
+    d = dd * (1 + 0.17 * math.sin(grados_a_radianes(0.9856 * n)))
     return d
 
 # Botón para realizar el cálculo
 if st.button("Calcular d"):
     resultado = calcular_d(n, dd)
     st.write(f"El valor de d es: {resultado}")
+import streamlit as st
+import math
 
 # Título de la aplicación
-st.title("Cálculo de δ")
+st.title("Cálculo de Cos(𝜔o)")
 
 # Entrada de valores
-n = st.number_input("Ingrese el valor de n:")
+phi = st.number_input("Ingrese el valor de ϕ en grados:")
+delta = st.number_input("Ingrese el valor de δ en grados:")
 
-# Función para calcular δ
-def calcular_delta(n):
-    delta = 23.45 * math.sin(0.9856 * n)
-    return delta
-
-# Botón para realizar el cálculo
-if st.button("Calcular δ"):
-    resultado = calcular_delta(n)
-    st.write(f"El valor de δ es: {resultado}")
-
-# Título de la aplicación
-st.title("Cálculo de d")
-
-# Entrada de valores
-n = st.number_input("Ingrese el valor de n:")
-dd = st.number_input("Ingrese el valor de đ:")
-
-# Función para calcular d
-def calcular_d(n, dd):
-    d = dd * (1 + 0.17 * math.sin(0.9856 * n))
-    return d
+# Función para calcular Cos(𝜔o)
+def calcular_cos_omega(phi, delta):
+    # Convertir ángulos de grados a radianes
+    phi_rad = math.radians(phi)
+    delta_rad = math.radians(delta)
+    
+    # Calcular Cos(𝜔o)
+    cos_omega = -math.tan(phi_rad) * math.tan(delta_rad)
+    return cos_omega
 
 # Botón para realizar el cálculo
-if st.button("Calcular d"):
-    resultado = calcular_d(n, dd)
-    st.write(f"El valor de d es: {resultado}")
+if st.button("Calcular Cos(𝜔o)"):
+    resultado = calcular_cos_omega(phi, delta)
+    resultado =math.degrees(math.acos(resultado))
+    st.write(f"El valor de 𝜔o es: {resultado:.4f}")
 
 # Título de la aplicación
 st.title("Cálculo de RA")
