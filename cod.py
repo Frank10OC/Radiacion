@@ -33,7 +33,7 @@ def calcular_ra(phi, delta, omega, d, dd):
     delta_rad = math.radians(delta)
     omega_rad = math.radians(omega)
     
-    RA = 889 * (dd / d) * (0.01745 * omega_rad * math.sin(phi_rad) * math.sin(delta_rad) + math.cos(phi_rad) * math.cos(delta_rad) * math.sin(omega_rad))
+    RA = 889 * pow((dd / d),2) * (0.01745 * omega_rad * math.sin(phi_rad) * math.sin(delta_rad) + math.cos(phi_rad) * math.cos(delta_rad) * math.sin(omega_rad))
     return RA
 
 # Botón para realizar el cálculo
