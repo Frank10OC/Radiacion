@@ -4,17 +4,17 @@ import pandas as pd
 dn = pd.read_csv("https://raw.githubusercontent.com/Frank10OC/Radiacion/main/DIAS.csv")
 st.write("Dias del año")
 st.dataframe(df)
-def calcular_radiacion_solar(Ics, N):
-    # Convertir N de días desde el 1 de enero a ángulo solar en grados
-    angulo_solar = 360 * N / 365
-    
-    # Calcular el término coseno
+def calcular_radiacion_solar(row):
+    angulo_solar = 360 * row['N'] / 365
     coseno_term = 0.0033 * math.cos(math.radians(angulo_solar))
-    
-    # Calcular la radiación solar incidente
-    radiacion_solar = Ics * (1 + coseno_term)
-    
-    return radiacion_solar
+    return row[4921.2] * (1 + coseno_term)
+
+# Aplicar la función a cada fila del DataFrame 'df' y guardar los resultados en una nueva columna 'Io'
+df['Io'] = df.apply(calcular_radiacion_solar, axis=1)
+
+# Mostrar el DataFrame resultante
+st.dataframe(df)
+
 I=4921.2
 i=calcular_radiacion_solar(I, dn)
 st.dataframe(I)
