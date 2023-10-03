@@ -1,27 +1,19 @@
-import streamlit as st
-import math
+# Crear la aplicación Streamlit
+st.title("Cálculo de ω y Actualización del CSV")
 
-# Título de la aplicación
-st.title("Cálculo de Radiación Solar en la Atmósfera Exterior")
+# Agregar un componente de carga de archivo CSV
+uploaded_file = st.file_uploader("Cargar archivo CSV", type=["csv"])
 
-# Entradas para las variables
-Io = st.number_input("Radiación solar extraterrestre (Io) [W/m^2]:", min_value=0.0, value=1361.0, step=1.0)
-delta = st.number_input("Declinación solar (δ) [grados]:", min_value=-90.0, max_value=90.0, value=0.0, step=1.0)
-phi = st.number_input("Latitud (ϕ) [grados]:", min_value=-90.0, max_value=90.0, value=0.0, step=1.0)
-omega_s = st.number_input("Hora del día (ωs) [grados]:", min_value=0.0, max_value=360.0, value=0.0, step=1.0)
+# Agregar un campo de entrada para ϕ
+phi = st.number_input("Ingrese el valor de ϕ:", min_value=0.0, max_value=90.0, step=0.1)
 
-# Calcular la radiación solar
-if st.button("Calcular"):
-    try:
-        # Convertir grados a radianes
-        delta_rad = math.radians(delta)
-        phi_rad = math.radians(phi)
-        omega_s_rad = math.radians(omega_s)
+# Verificar si se ha cargado un archivo CSV
+if uploaded_file is not None:
+    # Leer el archivo CSV en un DataFrame
+    df = pd.read_csv(uploaded_file)
 
-        # Calcular la radiación solar
-        Ho = (24 / math.pi) * Io * ((math.pi / 180) * omega_s_rad * math.sin(delta_rad) * math.sin(phi_rad) + math.cos(delta_rad) * math.cos(phi_rad) * math.sin(omega_s_rad))
+    # Calcular ω utilizando la fórmula y agregarlo como una nueva columna
+    df["Hora Solar"] = np.arccos(-np.tan(np.radians(df["δ"])) * np.tan(np.radians(phi)))
 
-        # Mostrar el resultado
-        st.success(f"La radiación solar en la atmósfera exterior (Ho) es aproximadamente {Ho:.2f} W/m^2.")
-    except Exception as e:
-        st.error(f"Ocurrió un error en el cálculo: {e}")
+    # Actualizar la visualización del DataFrame con la nueva columna
+    st.write(df)
