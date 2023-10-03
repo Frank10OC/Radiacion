@@ -9,17 +9,27 @@ st.dataframe(dn)
 df = dn.iloc[2:]
 # Quitar la primera columna
 df = dn.iloc[:, 1:]
-# Función para calcular la radiación solar
-def calcular_radiacion_solar(N):
-    Ics = 4921.2  # Radiación solar extraterrestre en W/m^2
-    angulo_solar = 360 * N / 365
-    coseno_term = 0.0033 * math.cos(math.radians(angulo_solar))
-    radiacion_solar = Ics * (1 + coseno_term)
-    return radiacion_solar
+import math
+import pandas as pd
 
-# Aplicar la función calcular_radiacion_solar a la columna 'N' y almacenar los resultados en una nueva columna
-df['RadiacionSolar'] = df["Enero"].apply(calcular_radiacion_solar)
-st.dataframe(dn)
+# Función para calcular la radiación solar para una columna de 'N' en un DataFrame
+def calcular_radiacion_solar_para_dataframe(df, columna_N):
+    Ics = 4921.2  # Radiación solar extraterrestre en W/m^2
+    
+    # Calcular el ángulo solar y el término coseno para toda la columna
+    angulo_solar = 360 * df[columna_N] / 365
+    coseno_term = 0.0033 * df[columna_N].apply(lambda x: math.cos(math.radians(x)))
+    
+    # Calcular la radiación solar para toda la columna y crear una nueva columna
+    df['RadiacionSolar'] = Ics * (1 + coseno_term)
+    
+    return df
+
+
+# Calcular la radiación solar para la columna 'N' utilizando la función
+df = calcular_radiacion_solar_para_dataframe(df, 'Enero')
+
+
 
 
 
