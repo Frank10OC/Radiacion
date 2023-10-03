@@ -20,7 +20,7 @@ def calcular_radiacion_solar(N):
 
 
 # Agregar una columna 'RadiacionSolar' para almacenar los resultados
-operaciones = dn.apply(calcular_radiacion_solar)
+operaciones = df.apply(calcular_radiacion_solar)
 
 # Configurar la aplicación Streamlit
 st.title('Operaciones con DataFrame')
