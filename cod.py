@@ -4,18 +4,32 @@ import pandas as pd
 dn = pd.read_csv("https://raw.githubusercontent.com/Frank10OC/Radiacion/main/DIAS.csv")
 st.write("Dias del año")
 st.dataframe(dn)
-def calcular_radiacion_solar(row):
+
+# Función para calcular la radiación solar
+def calcular_radiacion_solar(N):
     Ics = 4921.2  # Radiación solar extraterrestre en W/m^2
-    angulo_solar = 360 * row['dn'] / 365
+    angulo_solar = 360 * N / 365
     coseno_term = 0.0033 * math.cos(math.radians(angulo_solar))
     radiacion_solar = Ics * (1 + coseno_term)
     return radiacion_solar
 
-# Aplicar la función a cada fila del DataFrame y crear una nueva columna 'Io'
-df['Io'] = df.apply(calcular_radiacion_solar, axis=1)
+# Crear un DataFrame de ejemplo con la columna 'N'
+data = pd.DataFrame({'N': range(1, 366)})
 
-# Mostrar el DataFrame resultante
-st.dataframe(df)
+# Configurar la aplicación Streamlit
+st.title('Calculadora de Radiación Solar')
+st.sidebar.header('Configuración')
+
+# Permitir al usuario seleccionar un valor de N desde una barra deslizante
+selected_N = st.sidebar.slider('Seleccione un valor de N (Día del año)', 1, 365)
+
+# Calcular la radiación solar incidente usando la función
+radiacion_resultante = calcular_radiacion_solar(selected_N)
+
+# Mostrar el resultado en la interfaz
+st.write(f"Radiación solar incidente en el día {selected_N}: {radiacion_resultante} W/m^2")
+
+
 
 I=4921.2
 i=calcular_radiacion_solar(I, dn)
