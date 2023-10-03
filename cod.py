@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd
-df = pd.read("https://raw.githubusercontent.com/Frank10OC/Radiacion/main/DIAS.csv")
+df = pd.read_csv("https://raw.githubusercontent.com/Frank10OC/Radiacion/main/DIAS.csv")
 st.write("Tabla de datos:")
 st.dataframe(df)
 
