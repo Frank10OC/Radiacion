@@ -1,4 +1,36 @@
+import streamlit as st
+import pandas as pd
 
+# Título de la aplicación
+st.title("Búsqueda de Valor en Tabla de Excel")
+
+# Cargar un archivo de Excel
+archivo_excel = st.file_uploader("Cargar archivo Excel", type=["xls", "xlsx"])
+
+if archivo_excel is not None:
+    try:
+        # Leer el archivo de Excel en un DataFrame de Pandas
+        df = pd.read_excel(archivo_excel)
+
+        # Mostrar los datos en una tabla
+        st.write("Tabla de datos:")
+        st.dataframe(df)
+
+        # Entradas para la búsqueda
+        columna = st.text_input("Ingrese el nombre de la columna:")
+        fila = st.text_input("Ingrese el nombre de la fila:")
+
+        # Realizar la búsqueda y mostrar el resultado
+        if st.button("Buscar"):
+            try:
+                valor = df.loc[df['Columna'] == columna, fila].values[0]
+                st.success(f"El valor encontrado en la columna '{columna}' y fila '{fila}' es: {valor}")
+            except Exception as e:
+                st.error(f"No se pudo encontrar el valor. Error: {e}")
+
+    except Exception as e:
+        st.error(f"Ocurrió un error al leer el archivo: {e}")
+####
 import math
 import streamlit as st
 def grados_a_radianes(grados):
