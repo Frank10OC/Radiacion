@@ -3,7 +3,7 @@ import pandas as pd
 #dias año
 dn = pd.read_csv("https://raw.githubusercontent.com/Frank10OC/Radiacion/main/DIAS.csv")
 st.write("Dias del año")
-st.dataframe(df)
+st.dataframe(dn)
 def calcular_radiacion_solar(row):
     angulo_solar = 360 * row['N'] / 365
     coseno_term = 0.0033 * math.cos(math.radians(angulo_solar))
