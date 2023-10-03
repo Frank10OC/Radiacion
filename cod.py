@@ -18,7 +18,7 @@ def calcular_radiacion_solar(N):
     return radiacion_solar
 
 # Aplicar la función calcular_radiacion_solar a la columna 'N' y almacenar los resultados en una nueva columna
-df['RadiacionSolar'] = df[1].apply(calcular_radiacion_solar)
+df['RadiacionSolar'] = df["enero"].apply(calcular_radiacion_solar)
 st.dataframe(dn)
 
 
