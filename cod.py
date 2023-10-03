@@ -2,7 +2,7 @@
 st.title("Cálculo de ω y Actualización del CSV")
 
 # Agregar un componente de carga de archivo CSV
-uploaded_file = st.file_uploader("Cargar archivo CSV", type=["csv"])
+uploaded_file = st.file_uploader("https://raw.githubusercontent.com/Frank10OC/Radiacion/main/dato.csv", type=["csv"])
 
 # Agregar un campo de entrada para ϕ
 phi = st.number_input("Ingrese el valor de ϕ:", min_value=0.0, max_value=90.0, step=0.1)
