@@ -5,6 +5,7 @@ import math
 dn = pd.read_csv("https://raw.githubusercontent.com/Frank10OC/Radiacion/main/DIAS.csv")
 st.write("Dias del año")
 st.dataframe(dn)
+dn= dn.iloc[1:, 1:]
 import streamlit as st
 import pandas as pd
 import math
