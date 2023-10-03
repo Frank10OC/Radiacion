@@ -5,7 +5,11 @@ import math
 dn = pd.read_csv("https://raw.githubusercontent.com/Frank10OC/Radiacion/main/DIAS.csv")
 st.write("Dias del año")
 st.dataframe(dn)
-dn= dn.iloc[1:, 1:]
+# Quitar la primera y segunda fila
+df = dn.iloc[2:]
+# Quitar la primera columna
+df = dn.iloc[:, 1:]
+st.dataframe(df)
 # Función para calcular la radiación solar
 def calcular_radiacion_solar(N):
     Ics = 4921.2  # Radiación solar extraterrestre en W/m^2
