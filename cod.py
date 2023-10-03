@@ -13,9 +13,11 @@ def calcular_radiacion_solar(N):
     radiacion_solar = Ics * (1 + coseno_term)
     return radiacion_solar
 
-I=4921.2
-i=calcular_radiacion_solar(dn)
-st.dataframe(I)
+for index, row in data.iterrows():
+    N = dn
+    radiacion_resultante = calcular_radiacion_solar(N)
+    resultados = resultados.append({'N': N, 'RadiacionSolar': radiacion_resultante}, ignore_index=True)
+
 
 
 
