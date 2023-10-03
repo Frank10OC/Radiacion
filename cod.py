@@ -5,7 +5,7 @@ import pandas as pd
 st.title("Búsqueda de Valor en Tabla de Excel")
 
 # Cargar un archivo de Excel
-archivo_excel = st.file_uploader("Cargar archivo Excel", type=["xls", "xlsx"])
+archivo_excel = st.file_uploader("https://github.com/Frank10OC/Radiacion/blob/main/DIAS.xlsx", type=["xls", "xlsx"])
 
 if archivo_excel is not None:
     try:
