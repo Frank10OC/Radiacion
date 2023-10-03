@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd
-df = pd.read_excel("https://github.com/Frank10OC/Radiacion/blob/main/DIAS.xlsx", engine='openpyxl')
+df = pd.read_excel("https://raw.githubusercontent.com/Frank10OC/Radiacion/main/DIAS.csv")
 st.write("Tabla de datos:")
 st.dataframe(df)
 
