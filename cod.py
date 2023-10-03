@@ -2,34 +2,23 @@ import streamlit as st
 import pandas as pd
 
 # Título de la aplicación
-st.title("Búsqueda de Valor en Tabla de Excel")
+st.title("Tabla de Excel en Streamlit")
 
 # Cargar un archivo de Excel
-archivo_excel = st.file_uploader("https://onedrive.live.com/edit.aspx?resid=09ca314c44027344!272&cid=9ca314c44027344&CT=1696308109322&OR=ItemsView", type=["xls", "xlsx"])
+archivo_excel = st.file_uploader("Cargar archivo Excel", type=["xls", "xlsx"])
 
 if archivo_excel is not None:
     try:
         # Leer el archivo de Excel en un DataFrame de Pandas
-        df = pd.read_excel(archivo_excel)
+        df = pd.read_excel(archivo_excel, engine='openpyxl')  # Usa 'engine' para especificar el motor de lectura de Excel
 
         # Mostrar los datos en una tabla
         st.write("Tabla de datos:")
         st.dataframe(df)
 
-        # Entradas para la búsqueda
-        columna = st.text_input("Ingrese el nombre de la columna:")
-        fila = st.text_input("Ingrese el nombre de la fila:")
-
-        # Realizar la búsqueda y mostrar el resultado
-        if st.button("Buscar"):
-            try:
-                valor = df.loc[df['Columna'] == columna, fila].values[0]
-                st.success(f"El valor encontrado en la columna '{columna}' y fila '{fila}' es: {valor}")
-            except Exception as e:
-                st.error(f"No se pudo encontrar el valor. Error: {e}")
-
     except Exception as e:
         st.error(f"Ocurrió un error al leer el archivo: {e}")
+
 ####
 import math
 import streamlit as st
