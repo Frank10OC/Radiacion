@@ -5,10 +5,6 @@ import math
 dn = pd.read_csv("https://raw.githubusercontent.com/Frank10OC/Radiacion/main/DIAS.csv")
 st.write("Dias del año")
 st.dataframe(dn)
-import streamlit as st
-import pandas as pd
-import math
-
 # Función para calcular la radiación solar
 def calcular_radiacion_solar(N):
     Ics = 4921.2  # Radiación solar extraterrestre en W/m^2
@@ -17,35 +13,8 @@ def calcular_radiacion_solar(N):
     radiacion_solar = Ics * (1 + coseno_term)
     return radiacion_solar
 
-# Crear un DataFrame de ejemplo con la columna 'N'
-data = pd.DataFrame({'N': range(1, 366)})
-
-# Crear un DataFrame para almacenar los resultados
-resultados = pd.DataFrame(columns=['N', 'RadiacionSolar'])
-
-# Configurar la aplicación Streamlit
-st.title('Calculadora de Radiación Solar')
-st.sidebar.header('Configuración')
-
-# Calcular la radiación solar para cada valor de N en el DataFrame y guardar los resultados
-for index, row in data.iterrows():
-    N = row['N']
-    radiacion_resultante = calcular_radiacion_solar(N)
-    resultados = resultados.append({'N':N, 'RadiacionSolar': radiacion_resultante}, ignore_index=True)
-
-# Mostrar los resultados en la interfaz
-st.write(resultados)
-
-# Opcional: Guardar los resultados en un archivo CSV
-if st.button('Guardar Resultados'):
-    resultados.to_csv('resultados_radiacion_solar.csv', index=False)
-    st.success('Resultados guardados en resultados_radiacion_solar.csv')
-
-
-
-
 I=4921.2
-i=calcular_radiacion_solar(I, dn)
+i=calcular_radiacion_solar(dn)
 st.dataframe(I)
 
 
