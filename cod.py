@@ -29,8 +29,8 @@ def calcular_radiacion_solar_para_dataframe(df, columna_N):
 # Calcular la radiación solar para la columna 'N' utilizando la función
 df = calcular_radiacion_solar_para_dataframe(dn, 'Enero')
 st.dataframe(df)
-df = calcular_radiacion_solar_para_dataframe(dn, 'Febrero')
-st.dataframe(df)
+da = calcular_radiacion_solar_para_dataframe(dn, 'Febrero')
+st.dataframe(da)
 
 
 
