@@ -5,11 +5,13 @@ dn = pd.read_csv("https://raw.githubusercontent.com/Frank10OC/Radiacion/main/DIA
 st.write("Dias del año")
 st.dataframe(dn)
 def calcular_radiacion_solar(row):
-    angulo_solar = 360 * row['N'] / 365
+    Ics = 4921.2  # Radiación solar extraterrestre en W/m^2
+    angulo_solar = 360 * row['dn'] / 365
     coseno_term = 0.0033 * math.cos(math.radians(angulo_solar))
-    return row['Io'] * (1 + coseno_term)
+    radiacion_solar = Ics * (1 + coseno_term)
+    return radiacion_solar
 
-# Aplicar la función a cada fila del DataFrame 'df' y guardar los resultados en una nueva columna 'Io'
+# Aplicar la función a cada fila del DataFrame y crear una nueva columna 'Io'
 df['Io'] = df.apply(calcular_radiacion_solar, axis=1)
 
 # Mostrar el DataFrame resultante
