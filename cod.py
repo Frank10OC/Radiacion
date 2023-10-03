@@ -1,5 +1,6 @@
 import streamlit as st
 import pandas as pd
+import math
 #dias año
 dn = pd.read_csv("https://raw.githubusercontent.com/Frank10OC/Radiacion/main/DIAS.csv")
 st.write("Dias del año")
