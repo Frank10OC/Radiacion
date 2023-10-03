@@ -9,7 +9,6 @@ st.dataframe(dn)
 df = dn.iloc[2:]
 # Quitar la primera columna
 df = dn.iloc[:, 1:]
-st.dataframe(df)
 # Función para calcular la radiación solar
 def calcular_radiacion_solar(N):
     Ics = 4921.2  # Radiación solar extraterrestre en W/m^2
@@ -18,23 +17,9 @@ def calcular_radiacion_solar(N):
     radiacion_solar = Ics * (1 + coseno_term)
     return radiacion_solar
 
-
-# Agregar una columna 'RadiacionSolar' para almacenar los resultados
-operaciones = df.apply(calcular_radiacion_solar)
-
-# Configurar la aplicación Streamlit
-st.title('Operaciones con DataFrame')
-st.sidebar.header('Configuración')
-
-# Mostrar el DataFrame 'operaciones' en la interfaz
-st.write(operaciones)
-
-# Opcional: Guardar el DataFrame 'operaciones' en un archivo CSV
-if st.button('Guardar DataFrame'):
-    operaciones.to_csv('operaciones_radiacion_solar.csv', index=False)
-    st.success('DataFrame guardado en operaciones_radiacion_solar.csv')
-
-
+# Aplicar la función calcular_radiacion_solar a la columna 'N' y almacenar los resultados en una nueva columna
+df['RadiacionSolar'] = df['N'].apply(calcular_radiacion_solar)
+st.dataframe(dn)
 
 
 
