@@ -6,10 +6,6 @@ dn = pd.read_csv("https://raw.githubusercontent.com/Frank10OC/Radiacion/main/DIA
 st.write("Dias del año")
 st.dataframe(dn)
 dn= dn.iloc[1:, 1:]
-import streamlit as st
-import pandas as pd
-import math
-
 # Función para calcular la radiación solar
 def calcular_radiacion_solar(N):
     Ics = 4921.2  # Radiación solar extraterrestre en W/m^2
@@ -19,7 +15,7 @@ def calcular_radiacion_solar(N):
     return radiacion_solar
 
 # Crear un DataFrame llamado 'operaciones'
-operaciones = dn#pd.DataFrame({'N': range(1, 366)})
+operaciones = pd.DataFrame({'N': range(1, 366)})
 
 # Agregar una columna 'RadiacionSolar' para almacenar los resultados
 operaciones['RadiacionSolar'] = operaciones['N'].apply(calcular_radiacion_solar)
