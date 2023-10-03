@@ -18,7 +18,7 @@ def calcular_radiacion_solar(N):
     return radiacion_solar
 
 # Crear un DataFrame llamado 'operaciones'
-operaciones = pd.DataFrame({'N': range(1, 366)})
+operaciones = dn#pd.DataFrame({'N': range(1, 366)})
 
 # Agregar una columna 'RadiacionSolar' para almacenar los resultados
 operaciones['RadiacionSolar'] = operaciones['N'].apply(calcular_radiacion_solar)
