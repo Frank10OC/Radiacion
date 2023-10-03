@@ -7,7 +7,7 @@ st.dataframe(dn)
 def calcular_radiacion_solar(row):
     angulo_solar = 360 * row['N'] / 365
     coseno_term = 0.0033 * math.cos(math.radians(angulo_solar))
-    return row[4921.2] * (1 + coseno_term)
+    return row['Io'] * (1 + coseno_term)
 
 # Aplicar la función a cada fila del DataFrame 'df' y guardar los resultados en una nueva columna 'Io'
 df['Io'] = df.apply(calcular_radiacion_solar, axis=1)
