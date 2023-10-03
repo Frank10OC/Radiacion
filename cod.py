@@ -2,24 +2,26 @@ import streamlit as st
 import math
 
 # Título de la aplicación
-st.title("Radiación Solar en la Atmósfera Exterior")
+st.title("Cálculo de Radiación Solar en la Atmósfera Exterior")
 
-# Entradas para latitud, ángulo horario y declinación solar
-latitud = st.number_input("Latitud (en grados):", min_value=-90, max_value=90, value=0)
-angulo_horario = st.number_input("Ángulo Horario (en grados):", min_value=0, max_value=360, value=0)
-declinacion_solar = st.number_input("Declinación Solar (en grados):", min_value=-90, max_value=90, value=0)
+# Entradas para las variables
+Io = st.number_input("Radiación solar extraterrestre (Io) [W/m^2]:", min_value=0.0, value=1361.0, step=1.0)
+delta = st.number_input("Declinación solar (δ) [grados]:", min_value=-90.0, max_value=90.0, value=0.0, step=1.0)
+phi = st.number_input("Latitud (ϕ) [grados]:", min_value=-90.0, max_value=90.0, value=0.0, step=1.0)
+omega_s = st.number_input("Hora del día (ωs) [grados]:", min_value=0.0, max_value=360.0, value=0.0, step=1.0)
 
-# Cálculo de la radiación solar
-def calcular_radiacion_solar(latitud, angulo_horario, declinacion_solar):
-    Io = 1361  # Intensidad solar promedio en W/m^2
-    phi = math.radians(latitud)
-    delta = math.radians(declinacion_solar)
-    omega_s = math.radians(angulo_horario)
+# Calcular la radiación solar
+if st.button("Calcular"):
+    try:
+        # Convertir grados a radianes
+        delta_rad = math.radians(delta)
+        phi_rad = math.radians(phi)
+        omega_s_rad = math.radians(omega_s)
 
-    Ho = (24 / math.pi) * Io * ((math.pi / 180) * omega_s * math.sin(delta) * math.sin(phi) + math.cos(delta) * math.cos(phi) * math.sin(omega_s))
-    return Ho
+        # Calcular la radiación solar
+        Ho = (24 / math.pi) * Io * ((math.pi / 180) * omega_s_rad * math.sin(delta_rad) * math.sin(phi_rad) + math.cos(delta_rad) * math.cos(phi_rad) * math.sin(omega_s_rad))
 
-if st.button("Calcular Radiación Solar"):
-    radiacion_solar = calcular_radiacion_solar(latitud, angulo_horario, declinacion_solar)
-    st.write(f"La radiación solar en la atmósfera exterior es de {radiacion_solar:.2f} W/m^2")
-
+        # Mostrar el resultado
+        st.success(f"La radiación solar en la atmósfera exterior (Ho) es aproximadamente {Ho:.2f} W/m^2.")
+    except Exception as e:
+        st.error(f"Ocurrió un error en el cálculo: {e}")
