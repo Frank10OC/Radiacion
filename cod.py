@@ -1,26 +1,25 @@
 import streamlit as st
 import pandas as pd
-df = pd.read_csv("https://raw.githubusercontent.com/Frank10OC/Radiacion/main/DIAS.csv")
-st.write("Tabla de datos:")
+#dias año
+dn = pd.read_csv("https://raw.githubusercontent.com/Frank10OC/Radiacion/main/DIAS.csv")
+st.write("Dias del año")
 st.dataframe(df)
+def calcular_radiacion_solar(Ics, N):
+    # Convertir N de días desde el 1 de enero a ángulo solar en grados
+    angulo_solar = 360 * N / 365
+    
+    # Calcular el término coseno
+    coseno_term = 0.0033 * math.cos(math.radians(angulo_solar))
+    
+    # Calcular la radiación solar incidente
+    radiacion_solar = Ics * (1 + coseno_term)
+    
+    return radiacion_solar
+I=4921.2
+i=calcular_radiacion_solar(I, dn)
+st.dataframe(I)
 
-# Título de la aplicación
-st.title("Tabla de Excel desde un Enlace Web en Streamlit")
 
-# Enlace web al archivo de Excel
-url_excel = st.text_input("Ingrese el enlace web al archivo de Excel:")
-
-if url_excel:
-    try:
-        # Leer datos desde la URL del archivo de Excel
-     
-
-        # Mostrar los datos en una tabla
-        st.write("Tabla de datos:")
-        st.dataframe(df)
-
-    except Exception as e:
-        st.error(f"Ocurrió un error al leer los datos desde el enlace web: {e}")
 
 
 ####
