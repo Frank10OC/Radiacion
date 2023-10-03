@@ -2,22 +2,23 @@ import streamlit as st
 import pandas as pd
 
 # Título de la aplicación
-st.title("Tabla de Excel en Streamlit")
+st.title("Tabla de Excel desde un Enlace Web en Streamlit")
 
-# Cargar un archivo de Excel
-archivo_excel = st.file_uploader("Cargar archivo Excel", type=["xls", "xlsx"])
+# Enlace web al archivo de Excel
+url_excel = st.text_input("Ingrese el enlace web al archivo de Excel:")
 
-if archivo_excel is not None:
+if url_excel:
     try:
-        # Leer el archivo de Excel en un DataFrame de Pandas
-        df = pd.read_excel(archivo_excel, engine='openpyxl')  # Usa 'engine' para especificar el motor de lectura de Excel
+        # Leer datos desde la URL del archivo de Excel
+        df = pd.read_excel(url_excel, engine='https://onedrive.live.com/?id=09ca314c44027344%210%5EL0xpdmVGb2xkZXJzL0RvY3VtZW50b3M&cid=09CA314C44027344')
 
         # Mostrar los datos en una tabla
         st.write("Tabla de datos:")
         st.dataframe(df)
 
     except Exception as e:
-        st.error(f"Ocurrió un error al leer el archivo: {e}")
+        st.error(f"Ocurrió un error al leer los datos desde el enlace web: {e}")
+
 
 ####
 import math
