@@ -13,7 +13,7 @@ if uploaded_file is not None:
     df = pd.read_csv(uploaded_file)
 
     # Calcular ω utilizando la fórmula y agregarlo como una nueva columna
-    df["Hora Solar"] = np.arccos(-np.tan(np.radians(df["δ"])) * np.tan(np.radians(phi)))
+    df["Hora Solar"] = np.arccos(-np.tan(np.radians(df["Declinación Solar"])) * np.tan(np.radians(phi)))
 
     # Actualizar la visualización del DataFrame con la nueva columna
     st.write(df)
