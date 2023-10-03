@@ -31,7 +31,7 @@ st.sidebar.header('Configuración')
 for index, row in data.iterrows():
     N = row['N']
     radiacion_resultante = calcular_radiacion_solar(N)
-    resultados = resultados.append({'N': N, 'RadiacionSolar': radiacion_resultante}, ignore_index=True)
+    resultados = resultados.append({'N', 'RadiacionSolar': radiacion_resultante}, ignore_index=True)
 
 # Mostrar los resultados en la interfaz
 st.write(resultados)
