@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd
-df = pd.read_excel("https://onedrive.live.com/?id=09ca314c44027344%210%5EL0xpdmVGb2xkZXJzL0RvY3VtZW50b3M&cid=09CA314C44027344")
+df = pd.read_excel("https://onedrive.live.com/?id=09ca314c44027344%210%5EL0xpdmVGb2xkZXJzL0RvY3VtZW50b3M&cid=09CA314C44027344", engine='openpyxl')
 st.write("Tabla de datos:")
 st.dataframe(df)
 
