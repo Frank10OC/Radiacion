@@ -1,120 +1,25 @@
 import streamlit as st
-import pandas as pd
-import math
-#dias año
-dn = pd.read_csv("https://raw.githubusercontent.com/Frank10OC/Radiacion/main/DIAS.csv")
-st.write("Dias del año")
-st.dataframe(dn)
-# Quitar la primera y segunda fila
-df = dn.iloc[2:]
-# Quitar la primera columna
-df = dn.iloc[:, 1:]
-import math
-import pandas as pd
-
-# Función para calcular la radiación solar para una columna de 'N' en un DataFrame
-def calcular_radiacion_solar_para_dataframe(df, columna_N):
-    Ics = 4921.2  # Radiación solar extraterrestre en W/m^2
-    
-    # Calcular el ángulo solar y el término coseno para toda la columna
-    angulo_solar = 360 * df[columna_N] / 365
-    coseno_term = 0.0033 * df[columna_N].apply(lambda x: math.cos(math.radians(x)))
-    
-    # Calcular la radiación solar para toda la columna y crear una nueva columna
-    df['RadiacionSolar'] = Ics * (1 + coseno_term)
-    
-    return df
-
-
-# Calcular la radiación solar para la columna 'N' utilizando la función
-df = calcular_radiacion_solar_para_dataframe(dn, 'Enero')
-st.dataframe(df)
-
-
-
-####
-import math
-import streamlit as st
-def grados_a_radianes(grados):
-    radianes = math.radians(grados)
-    return radianes
-
-# Título de la aplicación
-st.title("Cálculo de δ")
-
-# Entrada de valores
-n = st.number_input("Ingrese el valor de n:")
-
-# Función para calcular δ
-def calcular_delta(n):
-    delta = 23.45 * math.sin(grados_a_radianes(0.9856 * n))
-    return delta
-
-# Botón para realizar el cálculo
-if st.button("Calcular δ"):
-    resultado = calcular_delta(n)
-    st.write(f"El valor de δ es: {resultado}")
-
-# Título de la aplicación
-st.title("Cálculo de d")
-
-# Función para calcular d
-dd=1.4968*pow(10,13) #cm đ
-def calcular_d(n, dd):
-    d = dd * (1 + 0.17 * math.sin(grados_a_radianes(0.9856 * n)))
-    return d
-
-# Botón para realizar el cálculo
-if st.button("Calcular d"):
-    resultado = calcular_d(n, dd)
-    st.write(f"El valor de d es: {resultado}")
-    x=pow(dd/resultado,2)
-    st.write(f"El valor de d es:",x)
-import streamlit as st
 import math
 
 # Título de la aplicación
-st.title("Cálculo de Cos(𝜔o)")
+st.title("Radiación Solar en la Atmósfera Exterior")
 
-# Entrada de valores
-phi = st.number_input("Ingrese el valor de ϕ en grados:")
-delta = st.number_input("Ingrese el valor de δ en grados:")
+# Entradas para latitud, ángulo horario y declinación solar
+latitud = st.number_input("Latitud (en grados):", min_value=-90, max_value=90, value=0)
+angulo_horario = st.number_input("Ángulo Horario (en grados):", min_value=0, max_value=360, value=0)
+declinacion_solar = st.number_input("Declinación Solar (en grados):", min_value=-90, max_value=90, value=0)
 
-# Función para calcular Cos(𝜔o)
-def calcular_cos_omega(phi, delta):
-    # Convertir ángulos de grados a radianes
-    phi_rad = math.radians(phi)
-    delta_rad = math.radians(delta)
-    
-    # Calcular Cos(𝜔o)
-    cos_omega = -math.tan(phi_rad) * math.tan(delta_rad)
-    return cos_omega
+# Cálculo de la radiación solar
+def calcular_radiacion_solar(latitud, angulo_horario, declinacion_solar):
+    Io = 1361  # Intensidad solar promedio en W/m^2
+    phi = math.radians(latitud)
+    delta = math.radians(declinacion_solar)
+    omega_s = math.radians(angulo_horario)
 
-# Botón para realizar el cálculo
-if st.button("Calcular Cos(𝜔o)"):
-    resultado = calcular_cos_omega(phi, delta)
-    resultado =math.degrees(math.acos(resultado))
-    st.write(f"El valor de 𝜔o es: {resultado:.4f}")
+    Ho = (24 / math.pi) * Io * ((math.pi / 180) * omega_s * math.sin(delta) * math.sin(phi) + math.cos(delta) * math.cos(phi) * math.sin(omega_s))
+    return Ho
 
-# Título de la aplicación
-st.title("Cálculo de RA")
+if st.button("Calcular Radiación Solar"):
+    radiacion_solar = calcular_radiacion_solar(latitud, angulo_horario, declinacion_solar)
+    st.write(f"La radiación solar en la atmósfera exterior es de {radiacion_solar:.2f} W/m^2")
 
-# Entrada de valores
-phi = st.number_input("Ingrese el valor de φ en grados:")
-delta = st.number_input("Ingrese el valor de δ en grados:")
-omega = st.number_input("Ingrese el valor de 𝜔 en grados:")
-d = st.number_input("Ingrese el valor de 𝑑:")
-dd = st.number_input("Ingrese el valor de đ:")
-
-# Función para calcular RA
-def calcular_ra(phi, delta, omega, d, dd):
-    phi_rad = math.radians(phi)
-    delta_rad = math.radians(delta)
-    omega_rad = math.radians(omega)
-    
-    RA = 889 * pow((dd / d),2) * (0.01745 * omega_rad * math.sin(phi_rad) * math.sin(delta_rad) + math.cos(phi_rad) * math.cos(delta_rad) * math.sin(omega_rad))
-    return RA
-# Botón para realizar el cálculo
-if st.button("Calcular RA"):
-    resultado = calcular_ra(phi, delta, omega, d, dd)
-    st.write(f"El valor de RA es: {resultado}")
